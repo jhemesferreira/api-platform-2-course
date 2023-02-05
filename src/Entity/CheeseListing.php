@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
@@ -20,6 +21,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  * )
  * @ApiFilter(BooleanFilter::class, properties={"isPublished"})
  * @ApiFilter(SearchFilter::class, properties={"title": "partial"})
+ * @ApiFilter(PropertyFilter::class)
  * @ORM\Entity(repositoryClass="App\Repository\CheeseListingRepository")
  */
 class CheeseListing
@@ -96,6 +98,18 @@ class CheeseListing
         $this->description = nl2br($description);
 
         return $this;
+    }
+
+    /**
+     * @Groups("cheese_listing:read")
+     */
+    public function getShortDescription(): ?string
+    {
+        if (strlen($this->description) < 40) {
+            return $this->description;
+        }
+        return substr($this->description, 0, 40).'...';
+
     }
 
     public function getPrice(): ?int
