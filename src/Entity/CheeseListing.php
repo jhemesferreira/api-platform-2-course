@@ -17,7 +17,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  *  itemOperations={"get", "delete", "put"},
  *  normalizationContext={"groups"={"cheese_listing:read"}},
  *  denormalizationContext={"groups"={"cheese_listing:write"}},
- *  shortName="cheese"
+ *  shortName="cheese",
+ *    attributes={
+ *      "pagination_items_per_page"=10
+ *    }
  * )
  * @ApiFilter(BooleanFilter::class, properties={"isPublished"})
  * @ApiFilter(SearchFilter::class, properties={"title": "partial"})
