@@ -19,7 +19,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  *  denormalizationContext={"groups"={"cheese_listing:write"}},
  *  shortName="cheese",
  *    attributes={
- *      "pagination_items_per_page"=10
+ *      "pagination_items_per_page"=10,
+ *      "formats"={"jsonld", "json", "html", "jsonhal", "csv"={"text/csv"}}
  *    }
  * )
  * @ApiFilter(BooleanFilter::class, properties={"isPublished"})
